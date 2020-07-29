@@ -1,5 +1,10 @@
 module Enumerable
   def my_each
-  # will start coding here
+    i = 0
+    while i < self.size
+      yield(self[i])
+      i += 1
+    end
   end
+
 end
