@@ -45,19 +45,28 @@ module Enumerable
     i
     end 
 
-    def my_map
-      return to_enum(:my_map) unless block_given?
-  
-      new_self = []
-      my_each do |element|
-        new_self << if is_a? Hash
-          yield(element[0], element[1])
-        else
-        yield(element)
-            end
-      end
-  
-      new_self
+  def my_map
+    return to_enum(:my_map) unless block_given?
+
+    new_self = []
+    my_each do |element|
+      new_self << if is_a? Hash
+        yield(element[0], element[1])
+      else
+      yield(element)
+          end
     end
+    new_self
+  end
+
+  def my_inject (initial = 0)
+    i = 0
+    accumulator = initial
+    while (i < self.length)
+      accumulator = yield(accumulator, self[i])
+      i = i + 1
+    end
+    accumulator
+  end
 
 end
