@@ -32,7 +32,7 @@ In this project, we are required to implement our own version of Ruby’s enumer
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Prabhakarzx/Ruby-Bubble-Sort/issues).
+Feel free to check the [issues page](https://github.com/Prabhakarzx/Ruby_Advanced-Building-Blocks_Enumerables/issues).
 
 ## Show your support
 
