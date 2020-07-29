@@ -25,4 +25,20 @@ module Enumerable
   result
   end 
 
+  def my_any?
+    result = false
+    self.my_each { |i| false unless yield(i) }
+    result
+  end
+
+  def my_none?
+    result = true
+    self.my_each do |i|
+      result = false if self[i] == yield(i)
+    end
+    result
+  end
+
+
+
 end
