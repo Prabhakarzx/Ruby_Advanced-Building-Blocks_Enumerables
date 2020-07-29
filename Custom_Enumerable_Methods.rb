@@ -101,3 +101,9 @@ module Enumerable
 
 end
 
+def multiply_els(arr)
+  arr.my_inject(1) { |product, num| product * num }
+end
+
+p multiply_els([2, 4, 5])
+
