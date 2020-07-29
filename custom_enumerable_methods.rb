@@ -1,7 +1,7 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
-    
+
     my_self = []
     i = 0
     while i < my_self.size
@@ -74,9 +74,10 @@ module Enumerable
 
   def my_inject(initial = 0)
     i = 0
+    my_self = []
     accumulator = initial
-    while i < self.length
-      accumulator = yield(accumulator, self[i])
+    while i < my_self.length
+      accumulator = yield(accumulator, my_self[i])
       i += 1
     end
     accumulator
