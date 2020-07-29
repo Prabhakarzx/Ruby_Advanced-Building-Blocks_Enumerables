@@ -12,7 +12,7 @@ module Enumerable
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
-    for i in i...self.size
+    (i...self.size).my_each do |i|
       yield(self[i], i)
     end
   end
@@ -50,7 +50,7 @@ module Enumerable
   end
 
   def my_map
-    return to_enum(:my_map) unless block_given?  
+    return to_enum(:my_map) unless block_given?
 
     new_self = []
     my_each do |element|
@@ -63,10 +63,10 @@ module Enumerable
     new_self
   end
 
-  def my_inject (initial = 0)
+  def my_inject(initial = 0)
     i = 0
     accumulator = initial
-    while (i < self.length)
+    while i < self.length
       accumulator = yield(accumulator, self[i])
       i += 1
     end
@@ -74,7 +74,7 @@ module Enumerable
   end
 
   def my_map_with_proc(&proc)
-    return to_enum(:my_map_with_proc) unless block_given?  
+    return to_enum(:my_map_with_proc) unless block_given?
 
     new_self = []
     my_each do |element|
@@ -88,7 +88,7 @@ module Enumerable
   end
 
   def my_map_with_proc_or_block(&proc)
-    return to_enum(:my_map_with_proc_or_block) unless block_given?  
+    return to_enum(:my_map_with_proc_or_block) unless block_given?
 
     new_self = []
     my_each do |element|
