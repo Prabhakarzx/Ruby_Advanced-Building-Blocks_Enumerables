@@ -13,4 +13,16 @@ module Enumerable
     end
   end
 
+  def my_select
+   result = []
+   self.my_each { |i| result.push(i) if yield(i) }
+   result
+  end
+
+  def my_all?
+  result = true
+  self.my_each { |i| false unless yield(i) }
+  result
+  end 
+
 end
