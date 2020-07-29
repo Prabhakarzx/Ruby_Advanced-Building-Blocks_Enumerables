@@ -39,6 +39,10 @@ module Enumerable
     result
   end
 
-
+  def my_count
+    i = 0
+    self.my_each { i += 1 }
+    i
+    end 
 
 end
