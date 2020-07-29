@@ -74,7 +74,7 @@ module Enumerable
 
   def my_inject(initial = 0)
     i = 0
-    my_self = []
+    my_self = self
     accumulator = initial
     while i < my_self.length
       accumulator = yield(accumulator, my_self[i])
