@@ -14,14 +14,16 @@ module Enumerable
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
-    my_self = self
-    (i...my_self.size).my_each do |i|
-      yield(my_self[i], i)
+    i = 0
+    for element in self
+      yield(element, i)
+      i += 1
     end
-    my_self
   end
 
   def my_select
+    return to_enum(:my_select) unless block_given?
+    
     result = []
     my_self = self
     my_self.my_each { |i| result.push(i) if yield(i) }
@@ -112,8 +114,10 @@ module Enumerable
   end
 end
 
+array = [5, 4, 4, 0, 5, 0, 3, 4, 0, 0, 2, 6, 5, 6, 5, 6, 2, 1, 3, 0, 8, 0, 0, 1, 7, 1, 3, 5, 6, 1, 1, 1, 6, 5, 7, 7, 2, 0, 3, 1, 7, 0, 1, 4, 5, 7, 6, 5, 4, 3, 6, 5, 4, 0, 6, 2, 7, 2, 5, 6, 4, 7, 1, 3, 6, 3, 3, 2, 6, 1, 7, 7, 8, 6, 1, 3, 5, 0, 4, 1, 0, 5, 4, 2, 5, 2, 5, 6, 6, 0, 1, 8, 4, 5, 4, 0, 4, 0, 8, 6]
+
 def multiply_els(arr)
   arr.my_inject(1) { |product, num| product * num }
 end
 
-p multiply_els([2, 4, 5])
+p multiply_els([2, 4, 5,10]) 
