@@ -1,6 +1,7 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
+    
     my_self = []
     i = 0
     while i < my_self.size
@@ -13,40 +14,47 @@ module Enumerable
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
-    (i...self.size).my_each do |i|
-      yield(self[i], i)
+    my_self = []
+    (i...my_self.size).my_each do |i|
+      yield(my_self[i], i)
     end
+    my_self
   end
 
   def my_select
     result = []
-    self.my_each { |i| result.push(i) if yield(i) }
+    my_self = []
+    my_self.my_each { |i| result.push(i) if yield(i) }
     result
   end
 
   def my_all?
     result = true
-    self.my_each { |i| false unless yield(i) }
+    my_self = []
+    my_self.my_each { |i| false unless yield(i) }
     result
   end
 
   def my_any?
     result = false
-    self.my_each { |i| false unless yield(i) }
+    my_self = []
+    my_self.my_each { |i| false unless yield(i) }
     result
   end
 
   def my_none?
     result = true
-    self.my_each do |i|
-      result = false if self[i] == yield(i)
+    my_self = []
+    my_self.my_each do |i|
+      result = false if my_self[i] == yield(i)
     end
     result
   end
 
   def my_count
     i = 0
-    self.my_each { i += 1 }
+    my_self = []
+    my_self.my_each { i += 1 }
     i
   end
 
