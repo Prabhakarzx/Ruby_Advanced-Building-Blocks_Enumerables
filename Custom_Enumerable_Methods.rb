@@ -69,4 +69,35 @@ module Enumerable
     accumulator
   end
 
+  def my_map_with_proc(&proc)
+    return to_enum(:my_map_with_proc) unless block_given?
+
+    new_self = []
+    my_each do |element|
+      new_self << if is_a? Hash
+                    proc.call(element[0], element[1])
+                  else
+                    proc.call(element)
+                  end
+    end
+
+    new_self
+  end
+
+  def my_map_with_proc_or_block(&proc)
+    return to_enum(:my_map_with_proc_or_block) unless block_given?
+
+    new_self = []
+    my_each do |element|
+      new_self << if is_a? Hash
+                    (proc ? proc.call(element[0], element[1]) : yield(element[0], element[1]))
+                  else
+                    (proc ? proc.call(element) : yield(element))
+                  end
+    end
+
+    new_self
+  end
+
 end
+
