@@ -1,12 +1,13 @@
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
-
+    my_self = []
     i = 0
-    while i < self.size
-      yield(self[i])
+    while i < my_self.size
+      yield(my_self[i])
       i += 1
     end
+    my_self
   end
 
   def my_each_with_index
