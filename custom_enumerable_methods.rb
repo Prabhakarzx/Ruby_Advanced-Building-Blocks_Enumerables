@@ -28,28 +28,42 @@ module Enumerable
     result
   end
 
-  def my_all?(*arg)
-    result = true
-    if !arg[0].nil?
-      my_each { |i| result = false unless arg[0] == i }
-    elsif !block_given?
-      my_each { |i| result = false unless i }
+  def my_all?(param = nil)
+    if !block_given?
+      my_all? { |element| param.nil? ? element : param === element }
+    elsif is_a? Hash
+      count = 0
+      my_each do |element|
+        break unless yield(element[0], element[1])
+
+        count += 1
+      end
+      count == size
     else
-      my_each { |i| result = false unless yield(i) }
+      count = 0
+      my_each do |element|
+        break unless yield(element)
+
+        count += 1
+      end
+      count == size
     end
-    result
   end
 
-  def my_any?(*arg)
-    result = false
-    if !arg[0].nil?
-      my_each { |i| result = true if arg[0] == i }
-    elsif !block_given?
-      my_each { |item| result = true if item }
+  def my_any?(param = nil)
+    if !block_given?
+      my_any? { |element| param.nil? ? element : param === element }
+    elsif is_a? Hash
+      my_each do |element|
+        return true if yield(element[0], element[1])
+      end
+      false
     else
-      my_each { |item| result = true if yield(item) }
+      my_each do |element|
+        return true if yield(element)
+      end
+      false
     end
-    result
   end
 
   def my_none?(arg = nil, &block)
