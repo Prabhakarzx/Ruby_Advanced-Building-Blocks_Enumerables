@@ -10,7 +10,7 @@ module Enumerable
 
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
-    
+
     i = 0
     for element in self # rubocop:disable Style/For
       yield(element, i)
@@ -120,9 +120,3 @@ module Enumerable
 end
 
 # rubocop:enable Metrics/ModuleLength
-
-months = Hash.new( )
-months = { a: 1, b: 2, c: 3, d: 4, e: 5 }
-months.each_with_index do |key, value|
-   puts value
-end
