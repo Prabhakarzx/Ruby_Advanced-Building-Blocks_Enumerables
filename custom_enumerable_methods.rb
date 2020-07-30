@@ -121,6 +121,8 @@ module Enumerable
   end
 end
 
+# rubocop:enable Metrics/ModuleLength
+
 def multiply_els(arr)
   arr.my_inject(1) { |product, num| product * num }
 end
