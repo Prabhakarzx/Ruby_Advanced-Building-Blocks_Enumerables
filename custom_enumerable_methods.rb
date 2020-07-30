@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -6,6 +7,7 @@ module Enumerable
       yield(element)
     end
   end
+
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
@@ -17,6 +19,7 @@ module Enumerable
       i += 1
     end
   end
+
   def my_select
     return to_enum(:my_select) unless block_given?
 
@@ -25,6 +28,7 @@ module Enumerable
     my_self.my_each { |i| result.push(i) if yield(i) }
     result
   end
+
   def my_all?(param = nil)
     if !block_given?
       my_all? { |element| param.nil? ? element : param === element } # rubocop:disable Style/CaseEquality
