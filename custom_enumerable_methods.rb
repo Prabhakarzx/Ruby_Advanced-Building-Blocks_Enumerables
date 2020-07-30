@@ -10,11 +10,9 @@ module Enumerable
 
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
-
-    my_self = self
+    
     i = 0
-    element = 0
-    my_self.my_each do
+    for element in self # rubocop:disable Style/For
       yield(element, i)
       i += 1
     end
@@ -123,8 +121,8 @@ end
 
 # rubocop:enable Metrics/ModuleLength
 
-def multiply_els(arr)
-  arr.my_inject(1) { |product, num| product * num }
+months = Hash.new( )
+months = { a: 1, b: 2, c: 3, d: 4, e: 5 }
+months.each_with_index do |key, value|
+   puts value
 end
-
-p multiply_els([2, 4, 5])
