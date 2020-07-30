@@ -14,9 +14,10 @@ module Enumerable
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
 
+    my_self = self
     i = 0
     element = 0
-    self.my_each do
+    my_self.my_each do
       yield(element, i)
       i += 1
     end
@@ -34,7 +35,7 @@ module Enumerable
   def my_all?(*arg)
     result = true
     if !arg[0].nil?
-      my_each { |i| result = false unless arg[0] == i } # rubocop:disable Style/CaseEquality
+      my_each { |i| result = false unless arg[0] == i }
     elsif !block_given?
       my_each { |i| result = false unless i }
     else
@@ -108,7 +109,7 @@ module Enumerable
     result
   end
 end
- 
+
 def multiply_els(arr)
   arr.my_inject(1) { |product, num| product * num }
 end
