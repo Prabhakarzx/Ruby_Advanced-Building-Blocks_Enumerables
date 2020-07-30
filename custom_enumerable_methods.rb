@@ -15,7 +15,8 @@ module Enumerable
     return to_enum(:my_each_with_index) unless block_given?
 
     i = 0
-    for element in self
+    element = 0
+    self.my_each do
       yield(element, i)
       i += 1
     end
@@ -23,7 +24,7 @@ module Enumerable
 
   def my_select
     return to_enum(:my_select) unless block_given?
-    
+
     result = []
     my_self = self
     my_self.my_each { |i| result.push(i) if yield(i) }
@@ -33,7 +34,7 @@ module Enumerable
   def my_all?(*arg)
     result = true
     if !arg[0].nil?
-      my_each { |i| result = false unless arg[0] === i } # rubocop:disable Style/CaseEquality
+      my_each { |i| result = false unless arg[0] == i } # rubocop:disable Style/CaseEquality
     elsif !block_given?
       my_each { |i| result = false unless i }
     else
@@ -45,7 +46,7 @@ module Enumerable
   def my_any?(*arg)
     result = false
     if !arg[0].nil?
-      my_each { |i| result = true if arg[0] === i }
+      my_each { |i| result = true if arg[0] == i }
     elsif !block_given?
       my_each { |item| result = true if item }
     else
@@ -55,21 +56,21 @@ module Enumerable
   end
 
   def my_none?(arg = nil, &block)
-      !my_any?(arg, &block)
+    !my_any?(arg, &block)
   end
 
   def my_count(elem = nil)
-     counter = 0
- 
-     if block_given?
-       my_each { |item| counter += 1 if yield(item) }
-     elsif elem
-       my_each { |item| counter += 1 if item == elem }
-     else
-       counter = size
-     end
-     counter
-   end
+    counter = 0
+
+    if block_given?
+      my_each { |item| counter += 1 if yield(item) }
+    elsif elem
+      my_each { |item| counter += 1 if item == elem }
+    else
+      counter = size
+    end
+    counter
+  end
 
   def my_map(proc = nil)
     return to_enum(:my_map) unless block_given?
@@ -106,12 +107,10 @@ module Enumerable
     end
     result
   end
-
 end
  
-
 def multiply_els(arr)
   arr.my_inject(1) { |product, num| product * num }
 end
 
-p multiply_els([2, 4, 5,10]) 
+p multiply_els([2, 4, 5])
